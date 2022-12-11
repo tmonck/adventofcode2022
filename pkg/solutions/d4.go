@@ -9,47 +9,39 @@ import (
 )
 
 type Day4 struct {
-	Puzzle int
+	Day
 }
 
 func Day4Init(puzzle int) Day4 {
-	day4 := Day4{Puzzle: puzzle}
+	day4 := Day4{}
+	day4.Puzzle = puzzle
+	filepathFmt := "%s/pkg/inputs/day4/%s.txt"
+	currDir, _ := os.Getwd()
+	switch puzzle {
+	case 0:
+		day4.fileName = fmt.Sprintf(filepathFmt, currDir, "sample")
+	default:
+		day4.fileName = fmt.Sprintf(filepathFmt, currDir, "puzzle1")
+	}
 	return day4
 }
 
 func (d Day4) Run() int {
 	inputBytes := []byte{}
-	filepathFmt := "%s/pkg/inputs/day4/%s.txt"
-	currDir, _ := os.Getwd()
 	overlappingSectionsCount := 0
 	switch d.Puzzle {
-	case 1:
-		fileName := fmt.Sprintf(filepathFmt, currDir, "puzzle1")
-		inputBytes, _ = ioutil.ReadFile(fileName)
-		for _, line := range strings.Split(string(inputBytes), "\n") {
-			if len(line) == 0 {
-				continue
-			}
-			if d.IsOneSectionCompleteOverlap(line) {
-				fmt.Println("increment overlappingSectionsCount")
-				overlappingSectionsCount++
-			}
-		}
 	case 2:
-		fileName := fmt.Sprintf(filepathFmt, currDir, "puzzle1")
-		inputBytes, _ = ioutil.ReadFile(fileName)
+		inputBytes, _ = ioutil.ReadFile(d.fileName)
 		for _, line := range strings.Split(string(inputBytes), "\n") {
 			if len(line) == 0 {
 				continue
 			}
 			if d.DoesAnySectionOverlap(line) {
-				fmt.Println("increment overlappingSectionsCount")
 				overlappingSectionsCount++
 			}
 		}
 	default:
-		fileName := fmt.Sprintf(filepathFmt, currDir, "sample")
-		inputBytes, _ = ioutil.ReadFile(fileName)
+		inputBytes, _ = ioutil.ReadFile(d.fileName)
 		for _, line := range strings.Split(string(inputBytes), "\n") {
 			if len(line) == 0 {
 				continue
