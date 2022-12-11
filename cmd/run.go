@@ -32,13 +32,15 @@ to quickly create a Cobra application.`,
 		var solution solutions.Solution
 		switch day := runOptions.Day; day {
 		case 1:
-			solution = solutions.Day1{Puzzle: runOptions.Puzzle}
+			solution = solutions.Day1Init(runOptions.Puzzle)
 		case 2:
 			solution = solutions.Day2Init(runOptions.Puzzle)
 		case 3:
 			solution = solutions.Day3Init(runOptions.Puzzle)
 		case 4:
 			solution = solutions.Day4Init(runOptions.Puzzle)
+		case 5:
+			solution = solutions.Day5Init(runOptions.Puzzle)
 		}
 		fmt.Println(solution.Run())
 	},
