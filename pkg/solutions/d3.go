@@ -8,15 +8,24 @@ import (
 )
 
 type Day3 struct {
-	Puzzle         int
+	Day
 	itemPriorities map[string]int
 }
 
 var itemsSlice = []string{"a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z", "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"}
 
 func Day3Init(puzzle int) Day3 {
-	day3 := Day3{Puzzle: puzzle, itemPriorities: map[string]int{}}
+	day3 := Day3{itemPriorities: map[string]int{}}
+	day3.Puzzle = puzzle
+	filepathFmt := "%s/pkg/inputs/day3/%s.txt"
+	currDir, _ := os.Getwd()
 
+	switch puzzle {
+	case 0:
+		day3.fileName = fmt.Sprintf(filepathFmt, currDir, "sample")
+	default:
+		day3.fileName = fmt.Sprintf(filepathFmt, currDir, "puzzle1")
+	}
 	for i, k := range itemsSlice {
 		day3.itemPriorities[k] = i + 1
 	}
@@ -24,30 +33,16 @@ func Day3Init(puzzle int) Day3 {
 }
 func (d Day3) Run() int {
 	fmt.Println(fmt.Sprintf("Puzzle: %d", d.Puzzle))
-	filepathFmt := "%s/pkg/inputs/day3/%s.txt"
-	currDir, _ := os.Getwd()
 	var inputBytes []byte
 	runningTotal := 0
-	switch puzzle := d.Puzzle; puzzle {
-	case 1:
-		fileName := fmt.Sprintf(filepathFmt, currDir, "puzzle1")
-		inputBytes, _ = ioutil.ReadFile(fileName)
-		for i, line := range strings.Split(string(inputBytes), "\n") {
-			fmt.Println(i)
-			runningTotal = runningTotal + d.FindItemThatIsInBothCompartments(line)
-			fmt.Println(runningTotal)
-		}
+	switch d.Puzzle {
 	case 2:
-		fileName := fmt.Sprintf(filepathFmt, currDir, "puzzle1")
-		inputBytes, _ = ioutil.ReadFile(fileName)
+		inputBytes, _ = ioutil.ReadFile(d.fileName)
 		runningTotal = d.GetGroupCodePriority(inputBytes)
 	default:
-		fileName := fmt.Sprintf(filepathFmt, currDir, "sample")
-		inputBytes, _ = ioutil.ReadFile(fileName)
-		for i, line := range strings.Split(string(inputBytes), "\n") {
-			fmt.Println(i)
+		inputBytes, _ = ioutil.ReadFile(d.fileName)
+		for _, line := range strings.Split(string(inputBytes), "\n") {
 			runningTotal = runningTotal + d.FindItemThatIsInBothCompartments(line)
-			fmt.Println(runningTotal)
 		}
 	}
 	return runningTotal
