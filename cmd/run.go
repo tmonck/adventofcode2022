@@ -37,6 +37,8 @@ to quickly create a Cobra application.`,
 			solution = solutions.Day2Init(runOptions.Puzzle)
 		case 3:
 			solution = solutions.Day3Init(runOptions.Puzzle)
+		case 4:
+			solution = solutions.Day4Init(runOptions.Puzzle)
 		}
 		fmt.Println(solution.Run())
 	},
