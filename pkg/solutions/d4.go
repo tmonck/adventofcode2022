@@ -26,7 +26,7 @@ func Day4Init(puzzle int) Day4 {
 	return day4
 }
 
-func (d Day4) Run() int {
+func (d Day4) Run() string {
 	inputBytes := []byte{}
 	overlappingSectionsCount := 0
 	switch d.Puzzle {
@@ -51,7 +51,7 @@ func (d Day4) Run() int {
 			}
 		}
 	}
-	return overlappingSectionsCount
+	return strconv.Itoa(overlappingSectionsCount)
 }
 
 func (d Day4) IsOneSectionCompleteOverlap(line string) bool {

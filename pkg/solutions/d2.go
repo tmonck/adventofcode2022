@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"io/ioutil"
 	"os"
+	"strconv"
 	"strings"
 )
 
@@ -77,13 +78,13 @@ type Results map[string]Result
 
 var results = Results{}
 
-func (d Day2) Run() int {
+func (d Day2) Run() string {
 	fmt.Println(fmt.Sprintf("Puzzle: %d", d.Puzzle))
 	var inputBytes []byte
 	totalScore := 0
 	inputBytes, _ = ioutil.ReadFile(d.fileName)
 	totalScore = d.CalculateScore(inputBytes, d.secondColumnIsChoice)
-	return totalScore
+	return strconv.Itoa(totalScore)
 }
 
 func (m Choices) ConvertToChoice(s string) Choice {

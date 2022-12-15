@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"io/ioutil"
 	"os"
+	"strconv"
 	"strings"
 )
 
@@ -31,7 +32,7 @@ func Day3Init(puzzle int) Day3 {
 	}
 	return day3
 }
-func (d Day3) Run() int {
+func (d Day3) Run() string {
 	fmt.Println(fmt.Sprintf("Puzzle: %d", d.Puzzle))
 	var inputBytes []byte
 	runningTotal := 0
@@ -45,7 +46,7 @@ func (d Day3) Run() int {
 			runningTotal = runningTotal + d.FindItemThatIsInBothCompartments(line)
 		}
 	}
-	return runningTotal
+	return strconv.Itoa(runningTotal)
 }
 func (d Day3) FindItemThatIsInBothCompartments(ruckContents string) (priorityTotal int) {
 	compartment1 := ruckContents[0 : len(ruckContents)/2]

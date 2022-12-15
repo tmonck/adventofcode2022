@@ -10,7 +10,7 @@ import (
 )
 
 type Solution interface {
-	Run() int
+	Run() string
 }
 
 type Day struct {
@@ -34,7 +34,7 @@ func Day1Init(puzzle int) (day1 Day1) {
 	return
 }
 
-func (d Day1) Run() int {
+func (d Day1) Run() string {
 	fmt.Println(fmt.Sprintf("Puzzle: %d", d.Puzzle))
 	var inputBytes []byte
 	inputBytes, _ = ioutil.ReadFile(d.fileName)
@@ -46,7 +46,7 @@ func (d Day1) Run() int {
 	default:
 		total = caloriesSlice[len(caloriesSlice)-1]
 	}
-	return total
+	return strconv.Itoa(total)
 }
 
 func getTotalCaloriesPerElf(inputBytes []byte) []int {
