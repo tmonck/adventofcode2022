@@ -34,7 +34,7 @@ func Day5Init(puzzle int) (day5 Day5) {
 		day5.fileName = fmt.Sprintf(filepathFmt, currDir, "sample")
 		day5.moveAllAtOnce = true
 	case 2:
-		day5.fileName = fmt.Sprintf(filepathFmt, currDir, "sample")
+		day5.fileName = fmt.Sprintf(filepathFmt, currDir, "puzzle1")
 		day5.moveAllAtOnce = true
 	default:
 		day5.fileName = fmt.Sprintf(filepathFmt, currDir, "puzzle1")
@@ -68,20 +68,15 @@ func MoveSliceContents(slices map[int][]string, instructions []map[string]int, m
 		numToMove := instruction["numToMove"]
 		if moveAllAtOnce {
 			itemsToMove := []string{}
-			fmt.Println("moveAllAtOnce")
 			if len(slices[instruction["src"]])-numToMove > 0 {
 				itemsToMove = srcSlice[len(slices[instruction["src"]])-numToMove:]
-				fmt.Println(itemsToMove)
-				// Remove Item
-				slices[instruction["src"]] = srcSlice[len(slices[instruction["src"]])-numToMove:]
+				slices[instruction["src"]] = srcSlice[:len(slices[instruction["src"]])-numToMove]
 			} else {
-				itemsToMove = srcSlice[0:]
-				fmt.Println(itemsToMove)
-				slices[instruction["src"]] = srcSlice[0:]
+				itemsToMove = srcSlice
+				slices[instruction["src"]] = []string{}
 			}
 			// Move Item
 			slices[instruction["dest"]] = append(slices[instruction["dest"]], itemsToMove...)
-			fmt.Println(slices[instruction["dest"]])
 		} else {
 			for numToMove := instruction["numToMove"]; numToMove > 0; numToMove-- {
 				srcSlice := slices[instruction["src"]]
